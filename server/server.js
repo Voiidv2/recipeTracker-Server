@@ -47,6 +47,28 @@ app.get("/recipes", (req, res) => {
   });
 });
 
+app.get("/sourcetypes", (req, res) => {
+  db.query("SELECT DISTINCT SourceType FROM recipes;", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Getting SourceTypes");
+      res.send(result);
+    }
+  });
+});
+
+app.get("/sources", (req, res) => {
+  db.query("SELECT DISTINCT Source FROM recipes;", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Getting sources");
+      res.send(result);
+    }
+  });
+});
+
 app.listen(process.env.MYSQL_PORT, () => {
   console.log("Server is running on port " + process.env.MYSQL_PORT);
 });
