@@ -36,6 +36,17 @@ app.get("/skilltiers", (req, res) => {
   });
 });
 
+app.get("/recipes", (req, res) => {
+  db.query("SELECT * FROM recipes;", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Getting Recipes");
+      res.send(result);
+    }
+  });
+});
+
 app.listen(process.env.MYSQL_PORT, () => {
   console.log("Server is running on port " + process.env.MYSQL_PORT);
 });
