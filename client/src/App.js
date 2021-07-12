@@ -7,12 +7,23 @@ import Axios from "axios";
 function Profession({ profession, tiers }) {
   const { ProfessionId, ProfessionName } = profession; // deconstructing profession prop
   const { SkillTierId, SkillTierName, FKProfessionId } = tiers;
-  tiers.forEach((tier) => console.log(tier.FKProfessionId));
+
   return (
     <div>
       <h1>{ProfessionName}</h1>
+      {tiers.map((tier) => {
+        if (profession.ProfessionId == tier.FKProfessionId) {
+          return <Tier profession={profession} tier={tier} />;
+        }
+      })}
     </div>
   );
+}
+
+function Tier({ profession, tier }) {
+  const { ProfessionId, ProfessionName } = profession; // deconstructing profession prop
+  const { SkillTierId, SkillTierName, FKProfessionId } = tier;
+  return <h6>{tier.SkillTierName}</h6>;
 }
 
 function App() {
@@ -39,7 +50,7 @@ function App() {
   return (
     <div className="App">
       {professions.map((profession) => {
-        return <Profession key={profession.id} profession={profession} tiers={skillTiers} />;
+        return <Profession key={profession.ProfessionId} profession={profession} tiers={skillTiers} />;
       })}
     </div>
   );
