@@ -71,7 +71,6 @@ function Drop({ expansion, recipes }) {
   const filterRecipes = recipes.filter(
     (recipe) => recipe.FKSkillTierId === expansion.SkillTierId && recipe.SourceType === "Drop"
   );
-  console.log(filterRecipes);
   return (
     <>
       <p className="mb-0 mt-2 ">Drop</p>
@@ -81,7 +80,7 @@ function Drop({ expansion, recipes }) {
             <img
               key={recipe.RecipeId}
               id={recipe.RecipeId}
-              src="https://picsum.photos/200"
+              src={process.env.PUBLIC_URL + "/icons/" + recipe.RecipeIcon}
               className="rounded-2"
               style={{ maxWidth: "35px" }}
               alt={recipe.RecipeName}
@@ -97,7 +96,6 @@ function Quest({ expansion, recipes }) {
   const filterRecipes = recipes.filter(
     (recipe) => recipe.FKSkillTierId === expansion.SkillTierId && recipe.SourceType === "Quest"
   );
-  console.log(filterRecipes);
   return (
     <>
       <p className="mb-0 mt-2">Quest</p>
@@ -107,7 +105,7 @@ function Quest({ expansion, recipes }) {
             <img
               key={recipe.RecipeId}
               id={recipe.RecipeId}
-              src="https://picsum.photos/200"
+              src={process.env.PUBLIC_URL + "/icons/" + recipe.RecipeIcon}
               className="rounded-2"
               style={{ maxWidth: "35px" }}
               alt={recipe.RecipeName}
@@ -124,7 +122,6 @@ function Vendor({ expansion, recipes }) {
     (recipe) =>
       recipe.FKSkillTierId === expansion.SkillTierId && recipe.SourceType === "Vendor" && recipe.Source !== "Trainer"
   );
-  console.log(filterRecipes);
   return (
     <>
       <p className="mb-0 mt-2">Vendor</p>
@@ -134,7 +131,7 @@ function Vendor({ expansion, recipes }) {
             <img
               key={recipe.RecipeId}
               id={recipe.RecipeId}
-              src="https://picsum.photos/200"
+              src={process.env.PUBLIC_URL + "/icons/" + recipe.RecipeIcon}
               className="rounded-2"
               style={{ maxWidth: "35px" }}
               alt={recipe.RecipeName}
@@ -150,7 +147,6 @@ function Trainer({ expansion, recipes }) {
   const filterRecipes = recipes.filter(
     (recipe) => recipe.FKSkillTierId === expansion.SkillTierId && recipe.Source === "Trainer"
   );
-  console.log(filterRecipes);
   return (
     <>
       <p className="mb-0 mt-2">Trainer</p>
@@ -160,7 +156,7 @@ function Trainer({ expansion, recipes }) {
             <img
               key={recipe.RecipeId}
               id={recipe.RecipeId}
-              src="https://picsum.photos/200"
+              src={process.env.PUBLIC_URL + "/icons/" + recipe.RecipeIcon}
               className="rounded-2"
               style={{ maxWidth: "35px" }}
               alt={recipe.RecipeName}
@@ -216,9 +212,10 @@ function App() {
     getSourceTypes();
     getSources();
   }, []);
-
   return (
     <div className="container">
+      <img src={process.env.PUBLIC_URL + "/icons/ability_seal.jpg"} alt="test" />
+
       {professions.map((profession) => {
         return (
           <Profession

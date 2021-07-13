@@ -1,5 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# images
+/client/public/icons
+
 # dependencies
 /client/node_modules
 /client/.pnp
