@@ -6,7 +6,7 @@ import Axios from "axios";
 
 function Profession({ profession, tiers, recipes, sourceTypes, sources }) {
   return (
-    <div id={profession.ProfessionId}>
+    <div className="my-5 py-5" id={profession.ProfessionId}>
       <header className="row text-center">
         <h1>{profession.ProfessionName}</h1>
       </header>
@@ -77,14 +77,15 @@ function Drop({ expansion, recipes }) {
       <div>
         {filterRecipes.map((recipe) => {
           return (
-            <img
-              key={recipe.RecipeId}
-              id={recipe.RecipeId}
-              src={process.env.PUBLIC_URL + "/icons/" + recipe.RecipeIcon}
-              className="rounded-2"
-              style={{ maxWidth: "35px" }}
-              alt={recipe.RecipeName}
-            ></img>
+            <a key={recipe.RecipeId} href={"https://www.wowhead.com/recipe/" + recipe.RecipeId}>
+              <img
+                id={recipe.RecipeId}
+                src={process.env.PUBLIC_URL + "/icons/" + recipe.RecipeIcon}
+                className="rounded-2"
+                style={{ maxWidth: "35px" }}
+                alt={recipe.RecipeName}
+              ></img>
+            </a>
           );
         })}
       </div>
@@ -102,14 +103,15 @@ function Quest({ expansion, recipes }) {
       <div>
         {filterRecipes.map((recipe) => {
           return (
-            <img
-              key={recipe.RecipeId}
-              id={recipe.RecipeId}
-              src={process.env.PUBLIC_URL + "/icons/" + recipe.RecipeIcon}
-              className="rounded-2"
-              style={{ maxWidth: "35px" }}
-              alt={recipe.RecipeName}
-            ></img>
+            <a key={recipe.RecipeId} href={"https://www.wowhead.com/recipe/" + recipe.RecipeId}>
+              <img
+                id={recipe.RecipeId}
+                src={process.env.PUBLIC_URL + "/icons/" + recipe.RecipeIcon}
+                className="rounded-2"
+                style={{ maxWidth: "35px" }}
+                alt={recipe.RecipeName}
+              ></img>
+            </a>
           );
         })}
       </div>
@@ -128,14 +130,15 @@ function Vendor({ expansion, recipes }) {
       <div>
         {filterRecipes.map((recipe) => {
           return (
-            <img
-              key={recipe.RecipeId}
-              id={recipe.RecipeId}
-              src={process.env.PUBLIC_URL + "/icons/" + recipe.RecipeIcon}
-              className="rounded-2"
-              style={{ maxWidth: "35px" }}
-              alt={recipe.RecipeName}
-            ></img>
+            <a key={recipe.RecipeId} href={"https://www.wowhead.com/recipe/" + recipe.RecipeId}>
+              <img
+                id={recipe.RecipeId}
+                src={process.env.PUBLIC_URL + "/icons/" + recipe.RecipeIcon}
+                className="rounded-2"
+                style={{ maxWidth: "35px" }}
+                alt={recipe.RecipeName}
+              ></img>
+            </a>
           );
         })}
       </div>
@@ -153,14 +156,15 @@ function Trainer({ expansion, recipes }) {
       <div>
         {filterRecipes.map((recipe) => {
           return (
-            <img
-              key={recipe.RecipeId}
-              id={recipe.RecipeId}
-              src={process.env.PUBLIC_URL + "/icons/" + recipe.RecipeIcon}
-              className="rounded-2"
-              style={{ maxWidth: "35px" }}
-              alt={recipe.RecipeName}
-            ></img>
+            <a key={recipe.RecipeId} href={"https://www.wowhead.com/recipe/" + recipe.RecipeId}>
+              <img
+                id={recipe.RecipeId}
+                src={process.env.PUBLIC_URL + "/icons/" + recipe.RecipeIcon}
+                className="rounded-2"
+                style={{ maxWidth: "35px" }}
+                alt={recipe.RecipeName}
+              ></img>
+            </a>
           );
         })}
       </div>
@@ -214,8 +218,6 @@ function App() {
   }, []);
   return (
     <div className="container">
-      <img src={process.env.PUBLIC_URL + "/icons/ability_seal.jpg"} alt="test" />
-
       {professions.map((profession) => {
         return (
           <Profession
