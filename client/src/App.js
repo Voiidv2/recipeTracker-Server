@@ -1,19 +1,29 @@
 // import logo from "./logo.svg";
+
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+
 import { useEffect, useState } from "react";
 import Axios from "axios";
 
 function Profession({ profession, tiers, recipes, sourceTypes, sources }) {
   return (
     <div className="my-5 py-5" id={profession.ProfessionId}>
-      <header className="row text-center">
+      <header className="row py-2 my-2 border-bottom">
+        <hr />
         <h1>{profession.ProfessionName}</h1>
       </header>
       <section>
         {tiers.map((expansion) => {
           if (expansion.FKProfessionId === profession.ProfessionId) {
-            return <Expansion key={expansion.SkillTierId} recipes={recipes} expansion={expansion} />;
+            return (
+              <Expansion
+                key={expansion.SkillTierId}
+                recipes={recipes}
+                expansion={expansion}
+                sourceTypes={sourceTypes}
+              />
+            );
           }
         })}
       </section>
@@ -44,136 +54,128 @@ function Expansion({ profession, expansion, recipes, sourceTypes, sources }) {
     }
   };
 
+  useEffect(() => {
+    getExpansion();
+  }, []);
+
   return (
     <>
-      <header className="row text-center">
+      <header className="row">
         <h3>{getExpansion()}</h3>
       </header>
       <section className="d-flex flex-wrap">
-        <div className="row">
-          <Drop recipes={recipes} expansion={expansion} />
-        </div>
-        <div className="row">
-          <Quest recipes={recipes} expansion={expansion} />
-        </div>
-        <div className="row">
-          <Vendor recipes={recipes} expansion={expansion} />
-        </div>
-        <div className="row">
-          <Trainer recipes={recipes} expansion={expansion} />
+        <div className="row g-1">
+          {sourceTypes.map((sourceType) => {
+            return (
+              <SourceType key={sourceType.SourceType} recipes={recipes} expansion={expansion} sourceType={sourceType} />
+            );
+          })}
         </div>
       </section>
     </>
   );
 }
 
-function Drop({ expansion, recipes }) {
-  const filterRecipes = recipes.filter(
-    (recipe) => recipe.FKSkillTierId === expansion.SkillTierId && recipe.SourceType === "Drop"
-  );
-  return (
-    <>
-      <p className="mb-0 mt-2 ">Drop</p>
-      <div>
-        {filterRecipes.map((recipe) => {
-          return (
-            <a key={recipe.RecipeId} href={"https://www.wowhead.com/recipe/" + recipe.RecipeId}>
-              <img
-                id={recipe.RecipeId}
-                src={process.env.PUBLIC_URL + "/icons/" + recipe.RecipeIcon}
-                className="rounded-2"
-                style={{ maxWidth: "35px" }}
-                alt={recipe.RecipeName}
-              ></img>
-            </a>
-          );
-        })}
-      </div>
-    </>
-  );
-}
+function SourceType({ expansion, recipes, sourceType }) {
+  const filterRecipes = () => {
+    if ((recipes.SourceType = "Vendor")) {
+      // console.log("sourceType matches Vendor");
+      const filterVendor = recipes.filter(
+        (recipe) => recipe.FKSkillTierId === expansion.SkillTierId && recipe.SourceType === "Faction"
+      );
+      return filterVendor;
+    } else if ((recipes.SourceType = "Drop")) {
+      // console.log("sourceType matches Drop");
 
-function Quest({ expansion, recipes }) {
-  const filterRecipes = recipes.filter(
-    (recipe) => recipe.FKSkillTierId === expansion.SkillTierId && recipe.SourceType === "Quest"
-  );
-  return (
-    <>
-      <p className="mb-0 mt-2">Quest</p>
-      <div>
-        {filterRecipes.map((recipe) => {
-          return (
-            <a key={recipe.RecipeId} href={"https://www.wowhead.com/recipe/" + recipe.RecipeId}>
-              <img
-                id={recipe.RecipeId}
-                src={process.env.PUBLIC_URL + "/icons/" + recipe.RecipeIcon}
-                className="rounded-2"
-                style={{ maxWidth: "35px" }}
-                alt={recipe.RecipeName}
-              ></img>
-            </a>
-          );
-        })}
-      </div>
-    </>
-  );
-}
+      const filterDrop = recipes.filter(
+        (recipe) => recipe.FKSkillTierId === expansion.SkillTierId && recipe.SourceType === "Drop"
+      );
+      return filterDrop;
+    }
+    if ((recipes.SourceType = "Quest")) {
+      // console.log("sourceType matches Quest");
 
-function Vendor({ expansion, recipes }) {
-  const filterRecipes = recipes.filter(
-    (recipe) =>
-      recipe.FKSkillTierId === expansion.SkillTierId && recipe.SourceType === "Vendor" && recipe.Source !== "Trainer"
-  );
-  return (
-    <>
-      <p className="mb-0 mt-2">Vendor</p>
-      <div>
-        {filterRecipes.map((recipe) => {
-          return (
-            <a key={recipe.RecipeId} href={"https://www.wowhead.com/recipe/" + recipe.RecipeId}>
-              <img
-                id={recipe.RecipeId}
-                src={process.env.PUBLIC_URL + "/icons/" + recipe.RecipeIcon}
-                className="rounded-2"
-                style={{ maxWidth: "35px" }}
-                alt={recipe.RecipeName}
-              ></img>
-            </a>
-          );
-        })}
-      </div>
-    </>
-  );
-}
+      const filterQuest = recipes.filter(
+        (recipe) => recipe.FKSkillTierId === expansion.SkillTierId && recipe.SourceType === "Quest"
+      );
+      return filterQuest;
+    }
+    if ((recipes.SourceType = "Other")) {
+      // console.log("sourceType matches Other");
 
-function Trainer({ expansion, recipes }) {
-  const filterRecipes = recipes.filter(
-    (recipe) => recipe.FKSkillTierId === expansion.SkillTierId && recipe.Source === "Trainer"
-  );
+      const filterOther = recipes.filter(
+        (recipe) => recipe.FKSkillTierId === expansion.SkillTierId && recipe.SourceType === "Other"
+      );
+      return filterOther;
+    }
+    if ((recipes.SourceType = "Profession")) {
+      // console.log("sourceType matches Profession");
+
+      const filterProfession = recipes.filter(
+        (recipe) => recipe.FKSkillTierId === expansion.SkillTierId && recipe.SourceType === "Profession"
+      );
+      return filterProfession;
+    }
+    if ((recipes.SourceType = "Discover")) {
+      // console.log("sourceType matches Discover");
+
+      const filterDiscover = recipes.filter(
+        (recipe) => recipe.FKSkillTierId === expansion.SkillTierId && recipe.SourceType === "Discover"
+      );
+      return filterDiscover;
+    }
+    if ((recipes.SourceType = "Faction")) {
+      // console.log("sourceType matches Faction");
+
+      const filterFaction = recipes.filter(
+        (recipe) => recipe.FKSkillTierId === expansion.SkillTierId && recipe.SourceType === "Faction"
+      );
+      return filterFaction;
+    }
+    if ((recipes.SourceType = "Currency")) {
+      // console.log("sourceType matches Currency");
+
+      const filterCurrency = recipes.filter(
+        (recipe) => recipe.FKSkillTierId === expansion.SkillTierId && recipe.SourceType === "Currency"
+      );
+      return filterCurrency;
+    }
+    if ((recipes.SourceType = "Treasure")) {
+      // console.log("sourceType matches Treasure");
+
+      const filterTreasure = recipes.filter(
+        (recipe) => recipe.FKSkillTierId === expansion.SkillTierId && recipe.SourceType === "Treasure"
+      );
+      return filterTreasure;
+    }
+  };
+
   return (
     <>
-      <p className="mb-0 mt-2">Trainer</p>
-      <div>
-        {filterRecipes.map((recipe) => {
-          return (
-            <a key={recipe.RecipeId} href={"https://www.wowhead.com/recipe/" + recipe.RecipeId}>
-              <img
-                id={recipe.RecipeId}
-                src={process.env.PUBLIC_URL + "/icons/" + recipe.RecipeIcon}
-                className="rounded-2"
-                style={{ maxWidth: "35px" }}
-                alt={recipe.RecipeName}
-              ></img>
-            </a>
-          );
-        })}
-      </div>
+      <section className="row g-1 justify-content-start">
+        <h6>{sourceType.SourceType}</h6>
+        <div className="col-auto">
+          {filterRecipes().map((recipe) => {
+            return (
+              <a key={recipe.RecipeId} className="col-auto" href={"https://www.wowhead.com/recipe/" + recipe.RecipeId}>
+                <img
+                  id={recipe.RecipeId}
+                  src={process.env.PUBLIC_URL + "/icons/" + recipe.RecipeIcon}
+                  className="rounded-3"
+                  style={{ maxWidth: "35px" }}
+                  alt={recipe.RecipeName}
+                ></img>
+              </a>
+            );
+          })}
+        </div>
+      </section>
     </>
   );
 }
 
 function App() {
-  const [professions, setProfessions] = useState([]);
+  const [professions, setProfessions] = useState([{ ProfessionId: 164, ProfessionName: "Blacksmithing" }]);
   const [skillTiers, setSkillTiers] = useState([]);
   const [recipes, setRecipes] = useState([]);
   const [sourceTypes, setSourceTypes] = useState([]);
@@ -181,7 +183,7 @@ function App() {
 
   const getProfessions = () => {
     Axios.get("http://localhost:3001/professions").then((response) => {
-      setProfessions(response.data);
+      // setProfessions(response.data);
     });
   };
 
@@ -209,12 +211,19 @@ function App() {
     });
   };
 
+  // const getVendors = () => {
+  //   Axios.get("http://localhost:3001/sourcetypevendor").then((response) => {
+  //     setVendors(response.data);
+  //   });
+  // };
+
   useEffect(() => {
     getProfessions();
     getSkillTiers();
     getRecipes();
     getSourceTypes();
     getSources();
+    // getVendors();
   }, []);
   return (
     <div className="container">
@@ -236,29 +245,28 @@ function App() {
 
 export default App;
 
-// function Drop({ profession, tier, recipes }) {
-//   const { ProfessionId, ProfessionName } = profession; // deconstructing profession prop
-//   const { SkillTierId, SkillTierName, FKProfessionId } = tier;
-//   const { RecipeId, RecipeName, RecipeIcon, SourceType, Source, SourceZone, FKSkillTierId } = recipes;
+// function Drop({ expansion, recipes }) {
+// const filterRecipes = recipes.filter(
+//   (recipe) => recipe.FKSkillTierId === expansion.SkillTierId && recipe.SourceType === "Drop"
+// );
 //   return (
-//     <>
-//       <h6>Drops</h6>
-//       {recipes.map((recipe) => {
-//         if (tier.SkillTierId === recipe.FKSkillTierId) {
+//     <section className="">
+//       <p className="">Drop</p>
+//       <div className="row row-cols g-1">
+//         {filterRecipes.map((recipe) => {
 //           return (
-{
-  /* <img
-  key={recipe.RecipeId}
-  id={recipe.RecipeId}
-  src="https://picsum.photos/200"
-  className="rounded-2"
-  style={{ maxWidth: "35px" }}
-  alt={recipe.RecipeName}
-></img> */
-}
+// <a key={recipe.RecipeId} className="col" href={"https://www.wowhead.com/recipe/" + recipe.RecipeId}>
+// <img
+//   id={recipe.RecipeId}
+//   src={process.env.PUBLIC_URL + "/icons/" + recipe.RecipeIcon}
+//   className="rounded-3"
+//   style={{ maxWidth: "35px" }}
+//   alt={recipe.RecipeName}
+// ></img>
+// </a>
 //           );
-//         }
-//       })}
-//     </>
+//         })}
+//       </div>
+//     </section>
 //   );
 // }
