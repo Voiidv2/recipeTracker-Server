@@ -2,7 +2,7 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://github.com/Voiidv2/recipeTracker-Python)
+[![Product Name Screen Shot][product-screenshot]](https://github.com/Voiidv2/recipeTracker-Server)
 
 This is the server for the recipeTracker project. This server provides the neccesary connection between the mySQL database and the React application.
 
@@ -19,7 +19,7 @@ To get the project running locally, follow these simple steps.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/Voiidv2/recipeTracker-Python.git
+   git clone https://github.com/Voiidv2/recipeTracker-Server.git
    ```
 2. Install npm packages
    ```sh
