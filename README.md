@@ -38,6 +38,7 @@ To get the project running locally, follow these simple steps.
 
 ## Acknowledgements
 
+- [nodemon](https://nodemon.io/)
 - [morgan](https://www.npmjs.com/package/morgan)
 - [mysql2](https://www.npmjs.com/package/mysql2)
 - [dotenv](https://www.npmjs.com/package/dotenv)
